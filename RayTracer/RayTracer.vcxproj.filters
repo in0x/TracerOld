@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{f16e3b22-624a-4f33-a73b-3085967492e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="STB">
+      <UniqueIdentifier>{373854ae-46ad-4f51-bf88-50c97bfb0ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{4a202ce8-aaad-44df-8676-c56764dc5636}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{14341e92-8e8e-498e-b669-41ba1f314985}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{a3695c15-9846-4c99-b7e1-dffba28917fa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\stb_image_write.h">
+      <Filter>STB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\stb_image.h">
+      <Filter>STB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Vec3f.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\vec3Tests.h">
+      <Filter>Test</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ray.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PNG.h">
+      <Filter>STB</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\RayTracer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PNG.cpp">
+      <Filter>STB</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
