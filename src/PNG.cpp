@@ -24,11 +24,3 @@ bool PNG::saveToImage(const char* filePath)
 	
 	return true;
 }
-
-void PNG::setPixel(int row, int column, unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-{
-	data[row*x + column*y]	   = r;
-	data[row*x + column*y + 1] = g;
-	data[row*x + column*y + 2] = b;
-	data[row*x + column*y + 3] = a;
-}

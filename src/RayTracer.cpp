@@ -13,31 +13,24 @@ vec3 color(const ray& r)
 
 int main()
 {	
-	PNG image(200, 100, 4);
-	image.saveToImage("test.png");
+	PNG img(200, 100, 3);
+	int x = 0; int y = 0;
 
-	std::ofstream outStream("img1.ppm");
-	
-	float pixelsX = 200;
-	float pixelsY = 100;
-
-	outStream << "P3\n" << pixelsX << " " << pixelsY << "\n255\n";
-
-	for (int j = pixelsY - 1; j >= 0; j--)
+	for (int j = img.y - 1; j >= 0; j--)
 	{
-		for (int i = 0; i < pixelsX; i++)
+		for (int i = 0; i < img.x ; i++)
 		{
-			vec3 col(float(i) / pixelsX, float(j) / pixelsY, 0.2f);
+			vec3 col(float(i) / float(img.x), float(j) / float(img.y), 0.2f);
+			img.setPixel(x, y, 255.99f * col.x, 255.99f * col.y, 255.99f * col.z);
 
-			int ir = int(255.99f * col.x);
-			int ig = int(255.99f * col.y);
-			int ib = int(255.99f * col.z);
-
-			outStream << ir << " " << ig << " " << ib << "\n";
+			x++;
 		}
+		y++;
+		x = 0;
 	}
 
-	outStream.close();
+	if (!img.saveToImage("test.png")) std::cout << "Failed to save image" << std::endl;
+
     return 0;
 }
 
