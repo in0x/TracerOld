@@ -31,7 +31,6 @@ private:
 
 	vec3 A;
 	vec3 B;
-
 };
 
 #endif // RAY_H
