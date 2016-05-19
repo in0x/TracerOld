@@ -80,7 +80,7 @@ public:
 		return m_x*m_x + m_y*m_y + m_z*m_z;
 	}
 
-	void normalim_ze()
+	void normalize()
 	{
 		float len = 1 / length();
 		m_x *= len; m_y *= len; m_z *= len;

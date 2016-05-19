@@ -19,9 +19,9 @@ float intersect_sphere(const vec3& center, float radius, const ray& r)
 
 	float discrimant = b * b - 4 * a * c;
 	
-	if (discrimant < 0)
+	if (discrimant < 0.f)
 	{
-		return -1;
+		return -1.f;
 	}
 	else
 	{
@@ -34,14 +34,14 @@ vec3 color(const ray& r)
 	float t = intersect_sphere(vec3(0.f, 0.f, -1.f), 0.5f, r);
 	if (t > 0.f)
 	{
-		vec3 normal = r.pointAtParam(t).unitVector() - vec3(0,0,-1);
-		return 0.5f * vec3(normal.x + 1, normal.y + 1, normal.z + 1);
+		vec3 normal = (r.pointAtParam(t) - vec3(0.f, 0.f ,-1.f)).unitVector();
+		return 0.5f * vec3(normal.x() + 1, normal.y() + 1, normal.z() + 1);
 	};
 	
 	vec3 unitDir = r.direction().unitVector();
 
 	// Rescale unitDir.y from -1 - 1 to 0 - 1
-	float t = 0.5f * (unitDir.y + 1.f);
+	t = 0.5f * (unitDir.y() + 1.f);
 
 	// Lerp white - blue.
 	return (1.f - t) * vec3(1.f, 1.f, 1.f) + t * vec3(0.5f, 0.7f, 1.f);
@@ -70,7 +70,7 @@ int main()
 			ray r(origin, lowerLeftCorner + u * horizontal + v * vertical);
 			vec3 col = color(r);
 
-			img.setPixel(i, img.y - 1 - j, 255.99f * col.x, 255.99f * col.y, 255.99f * col.z);
+			img.setPixel(i, img.y - 1 - j, 255.99f * col.x(), 255.99f * col.y(), 255.99f * col.z());
 		}
 	}
 
