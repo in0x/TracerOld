@@ -1,5 +1,6 @@
 #include <fstream>
 #include <cassert>
+#include <cmath>
 
 #include "Vec3f.h"
 #include "ray.h"
@@ -7,7 +8,7 @@
 
 // Solve:
 // t * t * dot( B, B ) + 2 * t * dot( B, A - C ) + dot( A-C, A-C ) - R * R = 0
-bool intersect_sphere(const vec3& center, float radius, const ray& r)
+float intersect_sphere(const vec3& center, float radius, const ray& r)
 {
 	vec3 dir = r.direction();
 	vec3 origToCenter = dir - center;
@@ -17,14 +18,24 @@ bool intersect_sphere(const vec3& center, float radius, const ray& r)
 	float c = origToCenter.dot(origToCenter) - radius * radius;
 
 	float discrimant = b * b - 4 * a * c;
-	return (discrimant > 0);
+	
+	if (discrimant < 0)
+	{
+		return -1;
+	}
+	else
+	{
+		return (-b - sqrt(discrimant)) / (2.f * a);
+	}
 }
 
 vec3 color(const ray& r)
 {
-	if (intersect_sphere(vec3(0.f, 0.f, -1.f), 0.5f, r))
+	float t = intersect_sphere(vec3(0.f, 0.f, -1.f), 0.5f, r);
+	if (t > 0.f)
 	{
-		return vec3(1.f, 0.f, 0.f);
+		vec3 normal = r.pointAtParam(t).unitVector() - vec3(0,0,-1);
+		return 0.5f * vec3(normal.x + 1, normal.y + 1, normal.z + 1);
 	};
 	
 	vec3 unitDir = r.direction().unitVector();
