@@ -1,15 +1,36 @@
 #include <fstream>
+#include <cassert>
 
 #include "Vec3f.h"
 #include "ray.h"
 #include "PNG.h"
 
+// Solve:
+// t * t * dot( B, B ) + 2 * t * dot( B, A - C ) + dot( A-C, A-C ) - R * R = 0
+bool intersect_sphere(const vec3& center, float radius, const ray& r)
+{
+	vec3 dir = r.direction();
+	vec3 origToCenter = dir - center;
+
+	float a = dir.dot(dir);
+	float b = 2.f * origToCenter.dot(dir);
+	float c = origToCenter.dot(origToCenter) - radius * radius;
+
+	float discrimant = b * b - 4 * a * c;
+	return (discrimant > 0);
+}
+
 vec3 color(const ray& r)
 {
+	if (intersect_sphere(vec3(0.f, 0.f, -1.f), 0.5f, r))
+	{
+		return vec3(1.f, 0.f, 0.f);
+	};
+	
 	vec3 unitDir = r.direction().unitVector();
 
 	// Rescale unitDir.y from -1 - 1 to 0 - 1
-	float t = 0.5f * ( unitDir.y + 1.f );
+	float t = 0.5f * (unitDir.y + 1.f);
 
 	// Lerp white - blue.
 	return (1.f - t) * vec3(1.f, 1.f, 1.f) + t * vec3(0.5f, 0.7f, 1.f);
@@ -17,13 +38,15 @@ vec3 color(const ray& r)
 
 int main()
 {	
+	assert((vec3(1, 0, 0).dot(vec3(0, 1, 0)) == 0.f));
+
 	PNG img(200, 100, 3);
 
 	// Image plane dimensions.
 	vec3 origin(0.f,0.f,0.f);
 	vec3 lowerLeftCorner(-2.f, -1.f, -1.f);
-	vec3 height(4.f, 0.f, 0.f);
-	vec3 width(0.f, 2.f, 0.f);
+	vec3 horizontal(4.f, 0.f, 0.f);
+	vec3 vertical(0.f, 2.f, 0.f);
 	
 	// Raymarch through all pixels.
 	for (int j = img.y - 1; j >= 0; j--)
@@ -33,7 +56,7 @@ int main()
 			float u = float(i) / float(img.x);
 			float v = float(j) / img.y;
 
-			ray r(origin, lowerLeftCorner + u * width + v * height);
+			ray r(origin, lowerLeftCorner + u * horizontal + v * vertical);
 			vec3 col = color(r);
 
 			img.setPixel(i, img.y - 1 - j, 255.99f * col.x, 255.99f * col.y, 255.99f * col.z);
