@@ -19,8 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Intersectable.h" />
     <ClInclude Include="..\src\PNG.h" />
     <ClInclude Include="..\src\ray.h" />
+    <ClInclude Include="..\src\Sphere.h" />
     <ClInclude Include="..\src\stb_image.h" />
     <ClInclude Include="..\src\stb_image_write.h" />
     <ClInclude Include="..\src\Vec3f.h" />

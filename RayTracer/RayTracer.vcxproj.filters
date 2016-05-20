@@ -36,6 +36,12 @@
     <ClInclude Include="..\src\PNG.h">
       <Filter>STB</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Intersectable.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Sphere.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\RayTracer.cpp">

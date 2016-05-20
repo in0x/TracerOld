@@ -14,7 +14,7 @@ float intersect_sphere(const vec3& center, float radius, const ray& r)
 	float a = r.direction().dot(r.direction());
 	float b = 2.f * origToCenter.dot(r.direction());
 	float c = origToCenter.dot(origToCenter) - radius*radius;
-	float discriminant = b*b - 4 * a*c;
+	float discriminant = b * b - 4 * a * c;
 	
 	if (discriminant < 0) 
 	{
