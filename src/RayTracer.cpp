@@ -8,24 +8,21 @@
 
 // Solve:
 // t * t * dot( B, B ) + 2 * t * dot( B, A - C ) + dot( A-C, A-C ) - R * R = 0
-float intersect_sphere(const vec3& center, float radius, const ray& r)
+float intersect_sphere(const vec3& center, float radius, const ray& r) 
 {
-	vec3 dir = r.direction();
-	vec3 origToCenter = dir - center;
-
-	float a = dir.dot(dir);
-	float b = 2.f * origToCenter.dot(dir);
-	float c = origToCenter.dot(origToCenter) - radius * radius;
-
-	float discrimant = b * b - 4 * a * c;
+	vec3 origToCenter = r.origin() - center;	
+	float a = r.direction().dot(r.direction());
+	float b = 2.f * origToCenter.dot(r.direction());
+	float c = origToCenter.dot(origToCenter) - radius*radius;
+	float discriminant = b*b - 4 * a*c;
 	
-	if (discrimant < 0.f)
+	if (discriminant < 0) 
 	{
 		return -1.f;
 	}
-	else
+	else 
 	{
-		return (-b - sqrt(discrimant)) / (2.f * a);
+		return (-b - sqrt(discriminant)) / (2.f * a);
 	}
 }
 
@@ -39,10 +36,8 @@ vec3 color(const ray& r)
 	};
 	
 	vec3 unitDir = r.direction().unitVector();
-
 	// Rescale unitDir.y from -1 - 1 to 0 - 1
 	t = 0.5f * (unitDir.y() + 1.f);
-
 	// Lerp white - blue.
 	return (1.f - t) * vec3(1.f, 1.f, 1.f) + t * vec3(0.5f, 0.7f, 1.f);
 }
