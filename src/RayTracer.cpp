@@ -4,42 +4,29 @@
 
 #include "Vec3f.h"
 #include "ray.h"
+#include "Sphere.h"
+#include "IntersectableList.h"
 #include "PNG.h"
+#include "float.h"
 
 // Solve:
 // t * t * dot( B, B ) + 2 * t * dot( B, A - C ) + dot( A-C, A-C ) - R * R = 0
-float intersect_sphere(const vec3& center, float radius, const ray& r) 
-{
-	vec3 origToCenter = r.origin() - center;	
-	float a = r.direction().dot(r.direction());
-	float b = 2.f * origToCenter.dot(r.direction());
-	float c = origToCenter.dot(origToCenter) - radius*radius;
-	float discriminant = b * b - 4 * a * c;
-	
-	if (discriminant < 0) 
-	{
-		return -1.f;
-	}
-	else 
-	{
-		return (-b - sqrt(discriminant)) / (2.f * a);
-	}
-}
 
-vec3 color(const ray& r)
+vec3 color(const ray& r, IntersectableList& world)
 {
-	float t = intersect_sphere(vec3(0.f, 0.f, -1.f), 0.5f, r);
-	if (t > 0.f)
+	Intersection record;
+	if (world.intersect(r, 0.f, std::numeric_limits<float>::max(), record))
 	{
-		vec3 normal = (r.pointAtParam(t) - vec3(0.f, 0.f ,-1.f)).unitVector();
-		return 0.5f * vec3(normal.x() + 1, normal.y() + 1, normal.z() + 1);
-	};
-	
-	vec3 unitDir = r.direction().unitVector();
-	// Rescale unitDir.y from -1 - 1 to 0 - 1
-	t = 0.5f * (unitDir.y() + 1.f);
-	// Lerp white - blue.
-	return (1.f - t) * vec3(1.f, 1.f, 1.f) + t * vec3(0.5f, 0.7f, 1.f);
+		return 0.5f * vec3(record.normal.x() + 1, record.normal.y() + 1, record.normal.z() + 1);
+	}
+	else
+	{
+		vec3 unitDir = r.direction().unitVector();
+		// Rescale unitDir.y from -1 - 1 to 0 - 1
+		float t = 0.5f * (unitDir.y() + 1.f);
+		// Lerp white - blue.
+		return (1.f - t) * vec3(1.f, 1.f, 1.f) + t * vec3(0.5f, 0.7f, 1.f);
+	}
 }
 
 int main()
@@ -54,6 +41,10 @@ int main()
 	vec3 horizontal(4.f, 0.f, 0.f);
 	vec3 vertical(0.f, 2.f, 0.f);
 	
+	IntersectableList world;
+	world.Add(new Sphere(vec3(0.f, 0.f, -1.f), 0.5f));
+	world.Add(new Sphere(vec3(0.f, -100.5f, -1.f), 100.f));
+
 	// Raymarch through all pixels.
 	for (int j = img.y - 1; j >= 0; j--)
 	{
@@ -63,7 +54,7 @@ int main()
 			float v = float(j) / img.y;
 
 			ray r(origin, lowerLeftCorner + u * horizontal + v * vertical);
-			vec3 col = color(r);
+			vec3 col = color(r, world);
 
 			img.setPixel(i, img.y - 1 - j, 255.99f * col.x(), 255.99f * col.y(), 255.99f * col.z());
 		}

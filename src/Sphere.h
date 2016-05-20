@@ -18,7 +18,25 @@ private:
 
 bool Sphere::intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut)
 {
-	return true;
+	vec3 origToCenter = r.origin() - m_center;
+
+	float a = r.direction().dot(r.direction());
+	float b = origToCenter.dot(r.direction());
+	float c = origToCenter.dot(origToCenter) - m_radius * m_radius;
+	float discrimnant = b*b - a*c;
+
+	if (discrimnant > 0)
+	{
+		float t = (-b - sqrt(discrimnant)) / a;
+		if (t < tMax && t > tMin)
+		{
+			intersectOut.t = t;
+			intersectOut.p = r.pointAtParam(intersectOut.t);
+			intersectOut.normal = (intersectOut.p - m_center) / m_radius;
+			return true;
+		}
+	}
+	return false;
 }
 
 #endif // SPHERE_H

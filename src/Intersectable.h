@@ -10,9 +10,10 @@ struct Intersection
 	vec3 normal;
 };
 
-class Intersectable
+class Intersectable 
 {
 public:
+	virtual ~Intersectable() = default;
 	virtual bool intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut) = 0;
 };
 

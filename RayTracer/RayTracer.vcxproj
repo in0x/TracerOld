@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Intersectable.h" />
+    <ClInclude Include="..\src\IntersectableList.h" />
     <ClInclude Include="..\src\PNG.h" />
     <ClInclude Include="..\src\ray.h" />
     <ClInclude Include="..\src\Sphere.h" />
