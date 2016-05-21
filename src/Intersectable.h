@@ -1,6 +1,4 @@
-#ifndef INTERSECTABLE_H
-#define INTERSECTABLE_H
-
+#pragma once
 #include "ray.h"
 
 struct Intersection
@@ -16,6 +14,3 @@ public:
 	virtual ~Intersectable() = default;
 	virtual bool intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut) = 0;
 };
-
-
-#endif // INTERSECTABLE_H

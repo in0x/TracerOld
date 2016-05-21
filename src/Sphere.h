@@ -1,5 +1,4 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#pragma once
 
 #include "Intersectable.h"
 
@@ -16,6 +15,8 @@ private:
 	float m_radius;
 };
 
+// Solve:
+// t * t * dot( B, B ) + 2 * t * dot( B, A - C ) + dot( A-C, A-C ) - R * R = 0
 bool Sphere::intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut)
 {
 	vec3 origToCenter = r.origin() - m_center;
@@ -38,5 +39,3 @@ bool Sphere::intersect(const ray& r, float tMin, float tMax, Intersection& inter
 	}
 	return false;
 }
-
-#endif // SPHERE_H

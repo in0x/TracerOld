@@ -1,5 +1,4 @@
-#ifndef RAY_H
-#define RAY_H
+#pragma once
 
 #include "Vec3f.h"
 
@@ -32,5 +31,3 @@ private:
 	vec3 A;
 	vec3 B;
 };
-
-#endif // RAY_H

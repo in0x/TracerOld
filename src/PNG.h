@@ -1,5 +1,4 @@
-#ifndef PNG_H
-#define PNG_H
+#pragma once
 
 //https://github.com/nothings/stb
 #include "stb_image.h"
@@ -54,5 +53,3 @@ private:
 
 	unsigned char* data;
 };
-
-#endif // PNG_H

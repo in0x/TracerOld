@@ -1,7 +1,7 @@
-#ifndef INTERSECTABLE_LIST_H
-#define INTERSECTABLE_LIST_H
+#pragma once
 
 #include <vector>
+#include <memory>
 
 #include "Intersectable.h"
 
@@ -10,10 +10,10 @@ class IntersectableList : public Intersectable
 public:
 	
 	virtual bool intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut) override;
-	void Add(Intersectable* pObject);
+	void Add(std::unique_ptr<Intersectable> pObject);
 
 private:
-	std::vector<Intersectable*> m_intersectables;
+	std::vector<std::unique_ptr<Intersectable>> m_intersectables;
 };
 
 
@@ -33,9 +33,7 @@ bool IntersectableList::intersect(const ray& r, float tMin, float tMax, Intersec
 	return intersected;
 }
 
-void IntersectableList::Add(Intersectable* pObject)
+void IntersectableList::Add(std::unique_ptr<Intersectable> pObject)
 {
-	m_intersectables.push_back(pObject);
+	m_intersectables.push_back(std::move(pObject));
 }
-
-#endif // INTERSECTABLE_LIST_H

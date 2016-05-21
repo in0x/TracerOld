@@ -45,6 +45,9 @@
     <ClInclude Include="..\src\IntersectableList.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\camera.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\RayTracer.cpp">

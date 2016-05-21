@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\camera.h" />
     <ClInclude Include="..\src\Intersectable.h" />
     <ClInclude Include="..\src\IntersectableList.h" />
     <ClInclude Include="..\src\PNG.h" />
