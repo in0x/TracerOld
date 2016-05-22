@@ -148,6 +148,11 @@ inline vec3 operator/( float lhs, const vec3& rhs )
 	return vec3( lhs / rhs.x, lhs / rhs.y, lhs / rhs.z );
 }
 
+inline vec3 reflect(const vec3& v, const vec3& n)
+{
+	return v - 2 * v.dot(n) * n;
+}
+
 inline vec3 vec3::unitVector() const 
 {
 	return *this / length();

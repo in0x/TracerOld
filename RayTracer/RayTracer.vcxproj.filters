@@ -48,6 +48,18 @@
     <ClInclude Include="..\src\camera.h">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Material.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Lambertian.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MathUtil.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Metal.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\RayTracer.cpp">
@@ -55,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="..\src\PNG.cpp">
       <Filter>STB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MathUtil.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

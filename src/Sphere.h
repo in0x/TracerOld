@@ -1,18 +1,19 @@
 #pragma once
 
 #include "Intersectable.h"
+#include "Material.h"
 
 class Sphere : public Intersectable
 {
 public:
-	Sphere() {}
-	Sphere(vec3& center, float radius) : m_center(center), m_radius(radius) {}
+	Sphere(vec3& center, float radius, const Material& rMaterial) : m_center(center), m_radius(radius), m_rMaterial(rMaterial) {}
 
 	virtual bool intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut) override;
 
 private:
 	vec3 m_center;
 	float m_radius;
+	const Material& m_rMaterial;
 };
 
 // Solve:
@@ -35,6 +36,7 @@ bool Sphere::intersect(const ray& r, float tMin, float tMax, Intersection& inter
 			intersectOut.t = t;
 			intersectOut.p = r.pointAtParam(intersectOut.t);
 			intersectOut.normal = (intersectOut.p - m_center) / m_radius;
+			intersectOut.pMaterial = &m_rMaterial;
 			return true;
 		}
 	}
