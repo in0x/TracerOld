@@ -6,28 +6,13 @@ class ray
 {
 public:
 	ray() {}
-	ray( const vec3& origin, const vec3& direction ) : A( origin ), B( direction ) {}
+	ray( const vec3& origin, const vec3& direction ) : origin( origin ), direction( direction ) {}
 	
-	// Public member functions
-
-	vec3 origin() const
-	{
-		return A;
-	}
-
-	vec3 direction() const
-	{
-		return B;
-	}
+	vec3 origin;
+	vec3 direction;
 
 	vec3 pointAtParam( float t ) const
 	{
-		return A + t * B;
+		return origin + t * direction;
 	}
-
-private:
-	// Private members
-
-	vec3 A;
-	vec3 B;
 };

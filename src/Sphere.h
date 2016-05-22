@@ -19,10 +19,11 @@ private:
 // t * t * dot( B, B ) + 2 * t * dot( B, A - C ) + dot( A-C, A-C ) - R * R = 0
 bool Sphere::intersect(const ray& r, float tMin, float tMax, Intersection& intersectOut)
 {
-	vec3 origToCenter = r.origin() - m_center;
+	vec3 direction = r.direction;
+	vec3 origToCenter = r.origin - m_center;
 
-	float a = r.direction().dot(r.direction());
-	float b = origToCenter.dot(r.direction());
+	float a = direction.dot(direction);
+	float b = origToCenter.dot(direction);
 	float c = origToCenter.dot(origToCenter) - m_radius * m_radius;
 	float discrimnant = b*b - a*c;
 

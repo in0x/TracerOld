@@ -19,7 +19,7 @@ vec3 color(const ray& r, IntersectableList& world)
 	}
 	else
 	{
-		vec3 unitDir = r.direction().unitVector();
+		vec3 unitDir = r.direction.unitVector();
 		// Rescale unitDir.y from -1 - 1 to 0 - 1
 		float t = 0.5f * (unitDir.y + 1.f);
 		// Lerp white - blue.
