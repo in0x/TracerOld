@@ -9,8 +9,7 @@ public:
 	Metal(const vec3& albedo, float fuzz) : albedo(albedo), fuzzy(fuzz < 1 ? fuzzy = fuzz : fuzzy = 1) {}
 
 	vec3 albedo;
-	// Fuzzyness parameter is used to randomly scatter reflections.
-	// I think this may be the same as anisotropy (TODO: Research).
+	// Fuzzyness parameter is used controll how strongly rays are reflected randomly.
 	float fuzzy;
 
 	virtual bool scatter(const ray& r_in, const Intersection& record, vec3& attenuation, ray& scattered) const override;
